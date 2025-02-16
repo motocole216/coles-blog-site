@@ -3,62 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Post - Cole's Blog</title>
+    <title>Blog Post - Cole's Woodworking Blog</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --wood-primary: #8B4513;
+            --wood-secondary: #A0522D;
+            --wood-accent: #D2691E;
+            --paper-color: #FDF5E6;
+        }
+
+        body {
+            background-color: var(--paper-color);
+        }
+
         .post-container {
-            max-width: 800px;
-            margin: 100px auto 50px;
-            padding: 0 20px;
+            max-width: 900px;
+            margin: 80px auto 50px;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
 
         .post-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--wood-primary);
+        }
+
+        .post-title {
+            color: var(--wood-primary);
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
         }
 
         .post-meta {
             color: #666;
             margin: 1rem 0;
+            font-style: italic;
+            font-size: 1.1rem;
         }
 
         .post-content {
             line-height: 1.8;
+            font-size: 1.1rem;
         }
 
-        .post-content h1, .post-content h2, .post-content h3 {
+        .post-content h1 {
+            color: var(--wood-primary);
+            font-size: 2.5rem;
             margin: 2rem 0 1rem;
+            border-bottom: 2px solid var(--wood-accent);
+            padding-bottom: 0.5rem;
+        }
+
+        .post-content h2 {
+            color: var(--wood-secondary);
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            border-left: 4px solid var(--wood-accent);
+            padding-left: 1rem;
         }
 
         .post-content p {
             margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .post-content ul, .post-content ol {
+            margin: 1rem 0 1.5rem 2rem;
+            color: #333;
+        }
+
+        .post-content li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
         }
 
         .post-content img {
             max-width: 100%;
             height: auto;
-            margin: 2rem 0;
-        }
-
-        .post-content code {
-            background: #f1f5f9;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.9em;
-        }
-
-        .post-content pre code {
+            margin: 2rem auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             display: block;
-            padding: 1rem;
-            overflow-x: auto;
         }
 
-        .post-content blockquote {
-            border-left: 4px solid var(--primary-color);
-            padding-left: 1rem;
-            margin: 1.5rem 0;
-            color: #4a5568;
+        .post-tags {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--wood-primary);
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--wood-primary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: var(--wood-accent);
+            transform: translateY(-2px);
+        }
+
+        .navbar {
+            background: var(--wood-primary);
+            color: white;
+        }
+
+        .nav-brand {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .nav-links a {
+            color: white;
+            opacity: 0.9;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            opacity: 1;
+        }
+
+        .nav-links a.active {
+            color: white;
+            border-bottom: 2px solid white;
+        }
+
+        footer {
+            background: var(--wood-primary);
+            color: white;
+        }
+
+        .social-links a {
+            color: white;
+            opacity: 0.9;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .post-container {
+                margin: 60px auto 30px;
+                padding: 1rem;
+            }
+
+            .post-title {
+                font-size: 2rem;
+            }
+
+            .post-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .post-content h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -79,7 +193,7 @@
 
     <article class="post-container">
         <div class="post-header">
-            <h1 id="post-title"></h1>
+            <h1 class="post-title" id="post-title"></h1>
             <div class="post-meta">
                 <span id="post-date"></span>
                 <span id="post-author"></span>
@@ -87,6 +201,9 @@
         </div>
         <div class="post-content" id="post-content">
             <!-- Markdown content will be loaded here -->
+        </div>
+        <div class="post-tags" id="post-tags">
+            <!-- Tags will be loaded here -->
         </div>
     </article>
 
@@ -107,6 +224,53 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="/js/main.js"></script>
+    <script>
+        // Configure marked options for better rendering
+        marked.setOptions({
+            breaks: true,
+            gfm: true,
+            headerIds: true,
+            headerPrefix: 'section-'
+        });
+
+        // Update the loadBlogPost function to handle post metadata
+        async function loadBlogPost() {
+            const slug = window.location.pathname.split('/').pop();
+            try {
+                // Load post metadata
+                const postsResponse = await fetch('/blog/posts.json');
+                const postsData = await postsResponse.json();
+                const post = postsData.posts.find(p => p.slug === slug);
+                
+                if (post) {
+                    document.title = `${post.title} - Cole's Blog`;
+                    document.getElementById('post-title').textContent = post.title;
+                    document.getElementById('post-date').textContent = new Date(post.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                    document.getElementById('post-author').textContent = ` by ${post.author}`;
+                    
+                    // Add tags
+                    const tagsContainer = document.getElementById('post-tags');
+                    tagsContainer.innerHTML = post.tags.map(tag => 
+                        `<span class="tag">${tag.replace('-', ' ')}</span>`
+                    ).join('');
+                }
+
+                // Load post content
+                const contentResponse = await fetch(`/content/blog/${slug}.md`);
+                if (!contentResponse.ok) throw new Error('Post content not found');
+                const markdown = await contentResponse.text();
+                document.getElementById('post-content').innerHTML = marked.parse(markdown);
+            } catch (error) {
+                console.error('Error loading blog post:', error);
+                document.getElementById('post-content').innerHTML = '<p>Error loading blog post. Please try again later.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadBlogPost);
+    </script>
 </body>
 </html> 

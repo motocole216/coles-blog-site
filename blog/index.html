@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Cole's Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .blog-container {
+            max-width: 1000px;
+            margin: 80px auto 50px;
+            padding: 2rem;
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .blog-title {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blog-description {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .post-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .post-excerpt {
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more:hover {
+            gap: 0.8rem;
+        }
+
+        .post-tags {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .blog-container {
+                padding: 1rem;
+                margin-top: 60px;
+            }
+
+            .blog-title {
+                font-size: 2rem;
+            }
+
+            .blog-description {
+                font-size: 1rem;
+            }
+
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Cole's Blog</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/blog" class="active">Blog</a>
+            <a href="/about">About</a>
+            <a href="/faq">FAQ</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <button class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <main class="blog-container">
+        <header class="blog-header">
+            <h1 class="blog-title">Blog Posts</h1>
+            <p class="blog-description">Explore my latest thoughts, projects, and insights about woodworking and carpentry.</p>
+        </header>
+
+        <div class="posts-grid" id="posts-container">
+            <!-- Posts will be loaded here -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Cole's Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Load blog posts
+        async function loadBlogPosts() {
+            try {
+                const response = await fetch('/blog/posts.json');
+                const data = await response.json();
+                const container = document.getElementById('posts-container');
+
+                const postElements = data.posts.map(post => `
+                    <article class="post-card">
+                        <div class="post-content">
+                            <h3>${post.title}</h3>
+                            <span class="post-date">${new Date(post.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            })}</span>
+                            <p class="post-excerpt">${post.excerpt}</p>
+                            <div class="post-tags">
+                                ${post.tags.map(tag => `<span class="tag">${tag.replace('-', ' ')}</span>`).join('')}
+                            </div>
+                            <a href="/blog/${post.slug}" class="read-more">
+                                Read More 
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                `);
+
+                container.innerHTML = postElements.join('');
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+                document.getElementById('posts-container').innerHTML = '<p>Error loading blog posts. Please try again later.</p>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadBlogPosts);
+    </script>
+</body>
+</html> 

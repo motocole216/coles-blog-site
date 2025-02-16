@@ -19,6 +19,25 @@ app.get('/blog/posts.json', (req, res) => {
     }
 });
 
+// Handle blog index page
+app.get('/blog', (req, res) => {
+    res.sendFile(path.join(__dirname, 'blog/index.html'));
+});
+
+// Handle blog post pages
+app.get('/blog/:slug', (req, res) => {
+    if (req.params.slug === 'index.html') {
+        res.sendFile(path.join(__dirname, 'blog/index.html'));
+        return;
+    }
+    const templatePath = path.join(__dirname, 'blog/template.html');
+    if (fs.existsSync(templatePath)) {
+        res.sendFile(templatePath);
+    } else {
+        res.status(404).send('Blog template not found');
+    }
+});
+
 // Handle markdown content
 app.get('/content/blog/:post.md', (req, res) => {
     const postPath = path.join(__dirname, 'content/blog', `${req.params.post}.md`);
@@ -31,18 +50,6 @@ app.get('/content/blog/:post.md', (req, res) => {
 
 // Handle all other routes
 app.get('*', (req, res) => {
-    // If it's a blog post request
-    if (req.path.startsWith('/blog/') && !req.path.endsWith('.json')) {
-        const templatePath = path.join(__dirname, 'blog/template.html');
-        if (fs.existsSync(templatePath)) {
-            res.sendFile(templatePath);
-        } else {
-            res.status(404).send('Blog template not found');
-        }
-        return;
-    }
-    
-    // For all other routes, serve index.html
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
