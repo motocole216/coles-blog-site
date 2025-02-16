@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cole's Blog</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Cole's Blog</div>
+        <div class="nav-links">
+            <a href="/" class="active">Home</a>
+            <a href="/blog">Blog</a>
+            <a href="/about">About</a>
+            <a href="/faq">FAQ</a>
+            <a href="/contact">Contact</a>
+        </div>
+        <button class="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="gradient-text">Welcome to My Digital Space</h1>
+            <p>Exploring ideas, sharing knowledge, and building the future.</p>
+            <div class="cta-buttons">
+                <a href="/blog" class="btn primary">Read Blog</a>
+                <a href="/about" class="btn secondary">About Me</a>
+            </div>
+        </div>
+        <div class="hero-background"></div>
+    </header>
+
+    <main>
+        <section class="featured-posts">
+            <h2>Latest Posts</h2>
+            <div class="post-grid" id="featured-posts-container">
+                <!-- Posts will be loaded dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Cole's Blog. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+</html> 

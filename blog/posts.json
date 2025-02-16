@@ -1,0 +1,20 @@
+{
+    "posts": [
+        {
+            "title": "First Blog",
+            "slug": "firstblog",
+            "date": "2025-02-16",
+            "author": "Cole",
+            "excerpt": "Welcome to my carpentry and furniture making blog! Join me as I share insights about woodworking, furniture making, and essential tips for fellow craftsmen.",
+            "tags": ["carpentry", "woodworking", "furniture-making", "introduction"]
+        },
+        {
+            "title": "Hello World: Welcome to My Blog",
+            "slug": "hello-world",
+            "date": "2024-03-14",
+            "author": "Cole",
+            "excerpt": "Welcome to my new blog! This is a space where I'll share my thoughts, experiences, and insights about carpentry, furniture making, and woodworking.",
+            "tags": ["introduction", "woodworking"]
+        }
+    ]
+} 
